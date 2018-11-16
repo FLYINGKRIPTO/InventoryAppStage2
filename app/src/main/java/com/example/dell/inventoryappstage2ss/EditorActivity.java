@@ -24,7 +24,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.dell.inventoryappstage2ss.data.InventoryContract;
+import static com.example.dell.inventoryappstage2ss.data.InventoryContract.InventoryEntry;
 
 public class EditorActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -37,7 +37,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     private Spinner mProductSupplierNameSpinner;
     private EditText mProductSupplierPhoneNumberEditText;
 
-    private int mSupplieName = InventoryContract.InventoryEntry.SUPPLIER_UNKNOWN;
+    private int mSupplierName = InventoryEntry.SUPPLIER_UNKNOWN;
 
     private boolean mProductHasChanged = false;
 
@@ -98,20 +98,20 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 String selection = (String) parent.getItemAtPosition(position);
                 if (!TextUtils.isEmpty(selection)) {
                     if (selection.equals(getString(R.string.supplier_amazon))) {
-                        mSupplieName = InventoryContract.InventoryEntry.SUPPLIER_AMAZON;
+                        mSupplierName = InventoryEntry.SUPPLIER_AMAZON;
                     } else if (selection.equals(getString(R.string.supplier_flipkart))) {
-                        mSupplieName = InventoryContract.InventoryEntry.SUPPLIER_FLIPKART;
+                        mSupplierName = InventoryEntry.SUPPLIER_FLIPKART;
                     } else if (selection.equals(getString(R.string.supplier_snapdeal))) {
-                        mSupplieName = InventoryContract.InventoryEntry.SUPPLIER_SNAPDEAL;
+                        mSupplierName = InventoryEntry.SUPPLIER_SNAPDEAL;
                     } else {
-                        mSupplieName = InventoryContract.InventoryEntry.SUPPLIER_UNKNOWN;
+                        mSupplierName = InventoryEntry.SUPPLIER_UNKNOWN;
                     }
                 }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                mSupplieName = InventoryContract.InventoryEntry.SUPPLIER_UNKNOWN;
+                mSupplierName = InventoryEntry.SUPPLIER_UNKNOWN;
             }
         });
     }
@@ -135,7 +135,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 Toast.makeText(this, getString(R.string.quantity_requires), Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (mSupplieName == InventoryContract.InventoryEntry.SUPPLIER_UNKNOWN) {
+            if (mSupplierName == InventoryEntry.SUPPLIER_UNKNOWN) {
                 Toast.makeText(this, getString(R.string.supplier_name_requires), Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -146,13 +146,13 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
             ContentValues values = new ContentValues();
 
-            values.put(InventoryContract.InventoryEntry.COLUMN_PRODUCT_NAME, productNameString);
-            values.put(InventoryContract.InventoryEntry.COLUMN_PRODUCT_PRICE, productPriceString);
-            values.put(InventoryContract.InventoryEntry.COLUMN_PRODUCT_QUANTITY, productQuantityString);
-            values.put(InventoryContract.InventoryEntry.COLUMN_PRODUCT_SUPPLIER_NAME, mSupplieName);
-            values.put(InventoryContract.InventoryEntry.COLUMN_PRODUCT_SUPPLIER_PHONE_NUMBER, productSupplierPhoneNumberString);
+            values.put(InventoryEntry.COLUMN_PRODUCT_NAME, productNameString);
+            values.put(InventoryEntry.COLUMN_PRODUCT_PRICE, productPriceString);
+            values.put(InventoryEntry.COLUMN_PRODUCT_QUANTITY, productQuantityString);
+            values.put(InventoryEntry.COLUMN_PRODUCT_SUPPLIER_NAME, mSupplierName);
+            values.put(InventoryEntry.COLUMN_PRODUCT_SUPPLIER_PHONE_NUMBER, productSupplierPhoneNumberString);
 
-            Uri newUri = getContentResolver().insert(InventoryContract.InventoryEntry.CONTENT_URI, values);
+            Uri newUri = getContentResolver().insert(InventoryEntry.CONTENT_URI, values);
 
             if (newUri == null) {
                 Toast.makeText(this, getString(R.string.insert_failed),
@@ -176,7 +176,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 Toast.makeText(this, getString(R.string.quantity_requires), Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (mSupplieName == InventoryContract.InventoryEntry.SUPPLIER_UNKNOWN) {
+            if (mSupplierName == InventoryEntry.SUPPLIER_UNKNOWN) {
                 Toast.makeText(this, getString(R.string.supplier_name_requires), Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -187,11 +187,11 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
             ContentValues values = new ContentValues();
 
-            values.put(InventoryContract.InventoryEntry.COLUMN_PRODUCT_NAME, productNameString);
-            values.put(InventoryContract.InventoryEntry.COLUMN_PRODUCT_PRICE, productPriceString);
-            values.put(InventoryContract.InventoryEntry.COLUMN_PRODUCT_QUANTITY, productQuantityString);
-            values.put(InventoryContract.InventoryEntry.COLUMN_PRODUCT_SUPPLIER_NAME, mSupplieName);
-            values.put(InventoryContract.InventoryEntry.COLUMN_PRODUCT_SUPPLIER_PHONE_NUMBER, productSupplierPhoneNumberString);
+            values.put(InventoryEntry.COLUMN_PRODUCT_NAME, productNameString);
+            values.put(InventoryEntry.COLUMN_PRODUCT_PRICE, productPriceString);
+            values.put(InventoryEntry.COLUMN_PRODUCT_QUANTITY, productQuantityString);
+            values.put(InventoryEntry.COLUMN_PRODUCT_SUPPLIER_NAME, mSupplierName);
+            values.put(InventoryEntry.COLUMN_PRODUCT_SUPPLIER_PHONE_NUMBER, productSupplierPhoneNumberString);
 
 
             int rowsAffected = getContentResolver().update(mCurrentProductUri, values, null, null);
@@ -258,12 +258,12 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         String[] projection = {
-                InventoryContract.InventoryEntry._ID,
-                InventoryContract.InventoryEntry.COLUMN_PRODUCT_NAME,
-                InventoryContract.InventoryEntry.COLUMN_PRODUCT_PRICE,
-                InventoryContract.InventoryEntry.COLUMN_PRODUCT_QUANTITY,
-                InventoryContract.InventoryEntry.COLUMN_PRODUCT_SUPPLIER_NAME,
-                InventoryContract.InventoryEntry.COLUMN_PRODUCT_SUPPLIER_PHONE_NUMBER
+                InventoryEntry._ID,
+                InventoryEntry.COLUMN_PRODUCT_NAME,
+                InventoryEntry.COLUMN_PRODUCT_PRICE,
+                InventoryEntry.COLUMN_PRODUCT_QUANTITY,
+                InventoryEntry.COLUMN_PRODUCT_SUPPLIER_NAME,
+                InventoryEntry.COLUMN_PRODUCT_SUPPLIER_PHONE_NUMBER
         };
         return new CursorLoader(this,
                 mCurrentProductUri,
@@ -279,11 +279,11 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             return;
         }
         if (cursor.moveToFirst()) {
-            int nameColumnIndex = cursor.getColumnIndex(InventoryContract.InventoryEntry.COLUMN_PRODUCT_NAME);
-            int priceColumnIndex = cursor.getColumnIndex(InventoryContract.InventoryEntry.COLUMN_PRODUCT_PRICE);
-            int quantityColumnIndex = cursor.getColumnIndex(InventoryContract.InventoryEntry.COLUMN_PRODUCT_QUANTITY);
-            int supplierNameColumnIndex = cursor.getColumnIndex(InventoryContract.InventoryEntry.COLUMN_PRODUCT_SUPPLIER_NAME);
-            int supplierPhoneColumnIndex = cursor.getColumnIndex(InventoryContract.InventoryEntry.COLUMN_PRODUCT_SUPPLIER_PHONE_NUMBER);
+            int nameColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_PRODUCT_NAME);
+            int priceColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_PRODUCT_PRICE);
+            int quantityColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_PRODUCT_QUANTITY);
+            int supplierNameColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_PRODUCT_SUPPLIER_NAME);
+            int supplierPhoneColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_PRODUCT_SUPPLIER_PHONE_NUMBER);
 
             String currentName = cursor.getString(nameColumnIndex);
             int currentPrice = cursor.getInt(priceColumnIndex);
@@ -297,13 +297,13 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             mProductSupplierPhoneNumberEditText.setText(Integer.toString(currentSupplierPhone));
 
             switch (currentSupplierName) {
-                case InventoryContract.InventoryEntry.SUPPLIER_AMAZON:
+                case InventoryEntry.SUPPLIER_AMAZON:
                     mProductSupplierNameSpinner.setSelection(1);
                     break;
-                case InventoryContract.InventoryEntry.SUPPLIER_FLIPKART:
+                case InventoryEntry.SUPPLIER_FLIPKART:
                     mProductSupplierNameSpinner.setSelection(2);
                     break;
-                case InventoryContract.InventoryEntry.SUPPLIER_SNAPDEAL:
+                case InventoryEntry.SUPPLIER_SNAPDEAL:
                     mProductSupplierNameSpinner.setSelection(3);
                     break;
                 default:
