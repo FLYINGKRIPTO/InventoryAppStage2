@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context="com.example.udacity.inventoryappstage2.EditorActivity">
+    tools:context="com.example.dell.inventoryappstage2ss.EditorActivity">
 
     <TextView
         android:layout_width="wrap_content"
