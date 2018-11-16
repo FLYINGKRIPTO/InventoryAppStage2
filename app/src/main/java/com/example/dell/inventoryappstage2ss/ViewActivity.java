@@ -28,7 +28,7 @@ public class ViewActivity extends AppCompatActivity implements LoaderManager.Loa
     private TextView mProductNameViewText;
     private TextView mProductPriceViewText;
     private TextView mProductQuantityViewText;
-    private TextView mProductSupplieNameSpinner;
+    private TextView mProductSupplierNameSpinner;
     private TextView mProductSupplierPhoneNumberViewText;
 
     @Override
@@ -39,7 +39,7 @@ public class ViewActivity extends AppCompatActivity implements LoaderManager.Loa
         mProductNameViewText = findViewById(R.id.product_name_view_text);
         mProductPriceViewText = findViewById(R.id.product_price_view_text);
         mProductQuantityViewText = findViewById(R.id.product_quantity_view_text);
-        mProductSupplieNameSpinner = findViewById(R.id.product_supplier_name_view_text);
+        mProductSupplierNameSpinner = findViewById(R.id.product_supplier_name_view_text);
         mProductSupplierPhoneNumberViewText = findViewById(R.id.product_supplier_phone_number_view_text);
 
         Intent intent = getIntent();
@@ -100,16 +100,16 @@ public class ViewActivity extends AppCompatActivity implements LoaderManager.Loa
 
             switch (currentSupplierName) {
                 case InventoryContract.InventoryEntry.SUPPLIER_AMAZON:
-                    mProductSupplieNameSpinner.setText(getText(R.string.supplier_amazon));
+                    mProductSupplierNameSpinner.setText(getText(R.string.supplier_amazon));
                     break;
                 case InventoryContract.InventoryEntry.SUPPLIER_FLIPKART:
-                    mProductSupplieNameSpinner.setText(getText(R.string.supplier_flipkart));
+                    mProductSupplierNameSpinner.setText(getText(R.string.supplier_flipkart));
                     break;
                 case InventoryContract.InventoryEntry.SUPPLIER_SNAPDEAL:
-                    mProductSupplieNameSpinner.setText(getText(R.string.supplier_snapdeal));
+                    mProductSupplierNameSpinner.setText(getText(R.string.supplier_snapdeal));
                     break;
                 default:
-                    mProductSupplieNameSpinner.setText(getText(R.string.supplier_unknown));
+                    mProductSupplierNameSpinner.setText(getText(R.string.supplier_unknown));
                     break;
             }
 
